@@ -5,7 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron:  '30 17 * * *'
+    # Automatically Build on Sundays
+    - cron:  '30 17 * * 0'
 
 env:
   REGISTRY: ghcr.io

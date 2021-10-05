@@ -52,6 +52,7 @@ docker buildx use multiarch ||  docker buildx create --name multiarch --use
 docker buildx build \
   --platform "linux/amd64,linux/arm64,linux/arm/v7" \
   -t "$TAG"  \
+  -t "$TAG-$(date +%y.%m.%d)"  \
   --build-arg version=$VERSION \
   --build-arg publish_target=$PUBLISH_TARGET \
   --build-arg BUILD_TARGET=$BUILD_TARGET \

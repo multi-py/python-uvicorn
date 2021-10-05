@@ -20,7 +20,9 @@ Looking for the containers? [Head over to the Github Container Registry](https:/
 * `3.6-slim`
 * `3.6-alpine`
 
-Images are rebuilt nightly so patch/bugfix releases come quickly and all containers use the latest version of uvicorn.
+Images are rebuilt weekly so patch/bugfix releases come quickly and all containers use the latest version of uvicorn.
+
+There are also dated tags (ie, `3.9-21.10.05`) that can be used when automatic updates aren't desired.
 
 Head over to the registry for a [full listing of tags](https://github.com/tedivm/python-uvicorn/pkgs/container/python-uvicorn).
 
