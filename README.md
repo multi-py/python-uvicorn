@@ -128,3 +128,8 @@ The python module and variable that is passed to uvicorn. When used the `VARIABL
 ### `PRE_START_PATH`
 
 Where to find the prestart script.
+
+
+### `RELOAD`
+
+When this is set to the string `true` uvicorn is launched in reload mode. If any files change uvicorn will reload the modules again, allowing for quick debugging. This comes at a performance cost, however, and should not be enabled on production machines.
