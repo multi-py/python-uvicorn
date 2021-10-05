@@ -31,6 +31,8 @@ fi
 #
 
 
-
-exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}"
-
+if [[ $RELOAD == "true" ]]; then
+    exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}" --reload
+else
+    exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}"
+fi

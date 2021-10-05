@@ -1,5 +1,9 @@
 # Python Uvicorn Docker Containers
 
+A multiarchitecture container image for running Python with Uvicorn.
+
+Looking for the containers? [Head over to the Github Container Registry](https://github.com/tedivm/python-uvicorn/pkgs/container/python-uvicorn)!
+
 ## Tags
 
 * `latest`
@@ -24,7 +28,7 @@ Head over to the registry for a [full listing of tags](https://github.com/tedivm
 
 ### Mutli Architecture Builds
 
-This project supports all of the architectures of the upstream python containers.
+Every tag in this repository supports these architectures:
 
 * linux/amd64
 * linux/arm64
@@ -35,9 +39,11 @@ This project supports all of the architectures of the upstream python containers
 
 Despite having to custom compile uvloop for different architectures this project manages to keep images small. It does so by using a multistaged build to compile the requirements in one image and then move them into the final image that gets published, ensuring that the build tools and artifacts get saved into the container.
 
+
 ### No Rate Limits
 
 This project uses the Github Container Registry to store images, which have no rate limiting on pulls (unlike Docker Hub).
+
 
 ## How To
 
@@ -79,6 +85,7 @@ COPY --from=0 /usr/local/lib/python3.9 /usr/local/lib/python3.9
 COPY ./app app
 ```
 
+
 ### PreStart Script
 
 When the container is launched it will run the script at `/app/prestart.sh` before starting the uvicorn service. This is an ideal place to put things like database migrations.
@@ -89,6 +96,7 @@ When the container is launched it will run the script at `/app/prestart.sh` befo
 ### `PORT`
 
 The port that the application inside of the container will listen on. This is different from the host port that gets mapped to the container.
+
 
 ### `LOG_LEVEL`
 
@@ -101,9 +109,11 @@ The uvicorn log level. Must be one of the following:
 * `debug`
 * `trace`
 
+
 ### `MODULE_NAME`
 
 The python module that uvicorn will import. This value is used to generate the APP_MODULE value.
+
 
 ### `VARIABLE_NAME`
 
@@ -113,6 +123,7 @@ The python variable containing the ASGI application inside of the module that uv
 ### `APP_MODULE`
 
 The python module and variable that is passed to uvicorn. When used the `VARIABLE_NAME` and `MODULE_NAME` environmental variables are ignored.
+
 
 ### `PRE_START_PATH`
 
