@@ -32,5 +32,5 @@ fi
 
 
 
-exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port 80 --log-level "${LOG_LEVEL:-info}"
+exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}"
 
