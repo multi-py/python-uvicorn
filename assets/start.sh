@@ -1,0 +1,36 @@
+#! /usr/bin/env sh
+set -e
+
+#
+# The follow block comes from tiangolo/uvicorn-gunicorn-docker
+# MIT License: https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/master/LICENSE
+#
+
+if [ -f /app/app/main.py ]; then
+    DEFAULT_MODULE_NAME=app.main
+elif [ -f /app/main.py ]; then
+    DEFAULT_MODULE_NAME=main
+fi
+MODULE_NAME=${MODULE_NAME:-$DEFAULT_MODULE_NAME}
+VARIABLE_NAME=${VARIABLE_NAME:-app}
+export APP_MODULE=${APP_MODULE:-"$MODULE_NAME:$VARIABLE_NAME"}
+
+
+# If there's a prestart.sh script in the /app directory or other path specified, run it before starting
+PRE_START_PATH=${PRE_START_PATH:-/app/prestart.sh}
+echo "Checking for script in $PRE_START_PATH"
+if [ -f $PRE_START_PATH ] ; then
+    echo "Running script $PRE_START_PATH"
+    . "$PRE_START_PATH"
+else
+    echo "There is no script $PRE_START_PATH"
+fi
+
+#
+# End of tiangolo/uvicorn-gunicorn-docker block
+#
+
+
+
+exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port 80 --log-level "${LOG_LEVEL:-info}"
+
