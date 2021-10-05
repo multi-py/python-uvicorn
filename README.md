@@ -26,6 +26,11 @@ Head over to the registry for a [full listing of tags](https://github.com/tedivm
 
 This project supports all of the architectures of the upstream python containers.
 
+* linux/amd64
+* linux/arm64
+* linux/arm/v7
+
+
 ### Small Images
 
 Despite having to custom compile uvloop for different architectures this project manages to keep images small. It does so by using a multistaged build to compile the requirements in one image and then move them into the final image that gets published, ensuring that the build tools and artifacts get saved into the container.
