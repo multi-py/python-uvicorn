@@ -32,7 +32,7 @@ else
     # So the build environment has to also be alpine.
     BUILD_TARGET=$PUBLISH_TARGET
   else
-    # Ever other image should use the full container for builds.
+    # Every other image should use the full container for builds.
     BUILD_TARGET=$VERSION
   fi
 
@@ -55,6 +55,6 @@ docker buildx build \
   -t "$TAG-$(date +%y.%m.%d)"  \
   --build-arg version=$VERSION \
   --build-arg publish_target=$PUBLISH_TARGET \
-  --build-arg BUILD_TARGET=$BUILD_TARGET \
+  --build-arg build_target=$BUILD_TARGET \
   --push \
   .
