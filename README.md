@@ -7,6 +7,9 @@ Looking for the containers? [Head over to the Github Container Registry](https:/
 ## Tags
 
 * `latest`
+* `3.10`
+* `3.10-slim`
+* `3.10-alpine`
 * `3.9`
 * `3.9-slim`
 * `3.9-alpine`

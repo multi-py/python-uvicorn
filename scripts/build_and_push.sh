@@ -12,7 +12,7 @@ fi
 
 
 if [[ $1 =~ "latest" ]]; then
-  VERSION="3.9"
+  VERSION="3.10"
   PUBLISH_TARGET="latest"
   BUILD_TARGET=$PUBLISH_TARGET
 else
