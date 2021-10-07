@@ -46,6 +46,9 @@ IMAGE_LOCATION=$REGISTRY/$IMAGE_NAME
 TAG=$IMAGE_LOCATION:$PUBLISH_TARGET
 
 echo Building and pushing $TAG
+echo Python Version: $VERSION
+echo Publish Target: $PUBLISH_TARGET
+echo Build Target: $BUILD_TARGET
 
 docker buildx use multiarch ||  docker buildx create --name multiarch --use
 
