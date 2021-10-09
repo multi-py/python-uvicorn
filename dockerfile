@@ -10,10 +10,10 @@ ARG build_target
 # Only add build tools for alpine image. The ubuntu based images have build tools already.
 RUN if [[ "$build_target" == *"alpine" ]] ; then apk add build-base ; fi
 
-# Install uvicorn and build all of it's fancy C dependencies.
+# Install uvicorn and build all of its fancy C dependencies.
 RUN pip install uvicorn[standard]
 
-# Build our actual container now
+# Build our actual container now.
 FROM python:$publish_target
 LABEL maintainer="Robert Hafner <tedivm@tedivm.com>"
 
