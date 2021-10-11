@@ -38,12 +38,17 @@ else
 
 fi
 
-
 # Image Push location
 REGISTRY=${REGISTRY:-"ghcr.io"}
 IMAGE_NAME=${IMAGE_NAME:-"tedivm/python-uvicorn"}
 IMAGE_LOCATION=$REGISTRY/$IMAGE_NAME
 TAG=$IMAGE_LOCATION:$PUBLISH_TARGET
+
+if [[ "$VERSION" == "3.10" ]] && [[ "$VERSION" == "$BUILD_TARGET" ]] && [[ "$VERSION" == "$BUILD_TARGET" ]]; then
+  $LATEST_TAG="-t $IMAGE_LOCATION:LATEST"
+else
+  $LATEST_TAG=""
+fi
 
 echo Building and pushing $TAG
 echo Python Version: $VERSION
@@ -56,6 +61,7 @@ docker buildx build \
   --platform "linux/amd64,linux/arm64,linux/arm/v7" \
   -t "$TAG"  \
   -t "$TAG-$(date +%y.%m.%d)"  \
+  $LATEST_TAG \
   --build-arg version=$VERSION \
   --build-arg publish_target=$PUBLISH_TARGET \
   --build-arg build_target=$BUILD_TARGET \
