@@ -21,38 +21,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image:
-          - python_version: "latest"
-
-          - python_version: "3.10"
-          - python_version: "3.10"
-            target: "slim"
-          - python_version: "3.10"
-            target: "alpine"
-
-          - python_version: "3.9"
-          - python_version: "3.9"
-            target: "slim"
-          - python_version: "3.9"
-            target: "alpine"
-
-          - python_version: "3.8"
-          - python_version: "3.8"
-            target: "slim"
-          - python_version: "3.8"
-            target: "alpine"
-
-          - python_version: "3.7"
-          - python_version: "3.7"
-            target: "slim"
-          - python_version: "3.7"
-            target: "alpine"
-
-          - python_version: "3.6"
-          - python_version: "3.6"
-            target: "slim"
-          - python_version: "3.6"
-            target: "alpine"
+        python_version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+        target: ["", "slim", "alpine"]
 
     steps:
       - name: Checkout repository
@@ -73,7 +43,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy Image
-        run: bash scripts/build_and_push.sh ${{ matrix.image.python_version }} ${{ matrix.image.target }}
+        run: bash scripts/build_and_push.sh ${{ matrix.python_version }} ${{ matrix.target }}
         env:
-          PYTHON_VERSION: ${{ matrix.image.python_version }}
-          TARGET_TAG: ${{ matrix.image.target }}
+          PYTHON_VERSION: ${{ matrix.python_version }}
+          TARGET_TAG: ${{ matrix.target }}
