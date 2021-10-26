@@ -1,27 +1,34 @@
-ARG version=3.9
-ARG build_target=$version
-ARG publish_target=$version
+ARG python_version=3.9
+ARG build_target=$python_version
+ARG publish_target=$python_version
 
 FROM python:$build_target as Builder
 
-# Add build_target to container scope
+# Add arguments to container scope
 ARG build_target
+ARG package
+ARG package_version
 
 # Only add build tools for alpine image. The ubuntu based images have build tools already.
+# This command fails with a warning on Ubuntu (sh) and succeeds without issue on alpine (bash).
 RUN if [[ "$build_target" == *"alpine" ]] ; then apk add build-base ; fi
 
-# Install uvicorn and build all of its fancy C dependencies.
-RUN pip install uvicorn[standard]
+# Install packaer and build all dependencies.
+RUN pip install $package==$package_version
 
 # Build our actual container now.
 FROM python:$publish_target
-LABEL maintainer="Robert Hafner <tedivm@tedivm.com>"
 
-# Add version to container scope.
-ARG version
+# Add args to container scope.
+ARG python_version
+ARG package
+ARG maintainer=""
+LABEL python=$version
+LABEL package=$package
+LABEL maintainer=$maintainer
 
 # Copy all of the python files built in the Builder container into this smaller container.
-COPY --from=Builder /usr/local/lib/python$version /usr/local/lib/python$version
+COPY --from=Builder /usr/local/lib/python$python_version /usr/local/lib/python$python_version
 
 # Startup Script
 COPY ./assets/start.sh /start.sh
