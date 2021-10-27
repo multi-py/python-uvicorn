@@ -20,6 +20,7 @@ RUN pip install $package==$package_version
 FROM python:$publish_target
 
 # Add args to container scope.
+ARG publish_target
 ARG python_version
 ARG package
 ARG maintainer=""
