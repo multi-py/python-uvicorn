@@ -109,9 +109,8 @@ Every tag in this repository supports these architectures:
 * linux/arm/v7
 
 ## Tags
-
-* Recommended Image: `ghcr.io/multi-py/:py3.10-0.15.0`
-* Slim Image: `ghcr.io/multi-py/:py3.10-slim-0.15.0`
+* Recommended Image: `ghcr.io/multi-py/python-uvicorn:py3.10-0.15.0`
+* Slim Image: `ghcr.io/multi-py/python-uvicorn:py3.10-slim-0.15.0`
 
 Tags are based on the package version, python version, and the upstream container the container is based on.
 
@@ -176,7 +175,7 @@ Tags are based on the package version, python version, and the upstream containe
 
 ### Older Tags
 
-Older tags are left for historic purposes but do not receive updates. A full list of tags can be found on the package's [registry page](https://github.com/multi-py/python-uvicorn/pkgs/container/).
+Older tags are left for historic purposes but do not receive updates. A full list of tags can be found on the package's [registry page](https://github.com/multi-py/python-uvicorn/pkgs/container/python-uvicorn).
 
 ## Environmental Variables
 
