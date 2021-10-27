@@ -23,9 +23,12 @@ FROM python:$publish_target
 ARG python_version
 ARG package
 ARG maintainer=""
-LABEL python=$version
+ARG TARGETPLATFORM=""
+LABEL python=$python_version
 LABEL package=$package
 LABEL maintainer=$maintainer
+LABEL org.opencontainers.image.description="python:$publish_target $package:$package_version $TARGETPLATFORM"
+
 
 # Copy all of the python files built in the Builder container into this smaller container.
 COPY --from=Builder /usr/local/lib/python$python_version /usr/local/lib/python$python_version
