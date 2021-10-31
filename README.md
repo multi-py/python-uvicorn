@@ -4,9 +4,9 @@ A multiarchitecture container image for running Python with Uvicorn.
 
 Looking for the containers? [Head over to the Github Container Registry](https://github.com/multi-py/python-uvicorn/pkgs/container/python-uvicorn)!
 
-## Features
+## Benefits
 
-### Mutli Architecture Builds
+### Multi Architecture Builds
 
 Every tag in this repository supports these architectures:
 
@@ -15,17 +15,21 @@ Every tag in this repository supports these architectures:
 * linux/arm/v7
 
 
-### Small Images
+### Small Images via Multi Stage Builds
 
-Despite having to custom compile uvloop for different architectures this project manages to keep images small. It does so by using a multistaged build to compile the requirements in one image and then move them into the final image that gets published, ensuring that the build tools and artifacts get saved into the container.
-
+All libraries are compiled in one image before being moved into the final published image. This keeps all of the build tools out of the published container layers.
 
 ### No Rate Limits
 
 This project uses the Github Container Registry to store images, which have no rate limiting on pulls (unlike Docker Hub).
 
+### Rapid Building of New Versions
 
+Within 30 minutes of a new release to uvicorn on PyPI builds will kick off for new containers. This means new versions can be used in hours, not days.
 
+### Regular Updates
+
+Containers are rebuilt weekly in order to take on the security patches from upstream containers.
 
 ## How To
 ### Add Your App
