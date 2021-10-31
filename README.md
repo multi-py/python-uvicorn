@@ -1,4 +1,4 @@
-# uvicorn
+# 
 
 A multiarchitecture container image for running Python with Uvicorn.
 
