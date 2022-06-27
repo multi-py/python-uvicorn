@@ -22,8 +22,8 @@ RUN pip install $package==$package_version
 
 
 # Install limited packages on linux/arm/v7- exclude anything relying on Rust.
-RUN bash -c 'if [[ "$TARGETPLATFORM" == "linux/arm/v7" ]] ; then pip install celery==$package_version websockets>=10.0 httptools>=0.4.0 uvloop>=0.14.0,!=0.15.0,!=0.15.1 python-dotenv>=0.13 PyYAML>=5.1 ; fi'
-RUN bash -c 'if [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then pip install celery[standard]==$package_version ; fi'
+RUN bash -c 'if [[ "$TARGETPLATFORM" == "linux/arm/v7" ]] ; then pip install uvicorn==$package_version websockets>=10.0 httptools>=0.4.0 uvloop>=0.14.0,!=0.15.0,!=0.15.1 python-dotenv>=0.13 PyYAML>=5.1 ; fi'
+RUN bash -c 'if [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then pip install uvicorn[standard]==$package_version ; fi'
 
 
 
