@@ -19,7 +19,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_versions: ["3.7", "3.8", "3.9", "3.10"] 
+        python_versions: ["3.7", "3.8", "3.9", "3.10"]
         package_versions: ["0.17.4", "0.17.5", "0.17.6", "0.18.0", "0.18.1"]
         target_base: ["full", "slim", "alpine"]
     steps:
@@ -30,7 +30,7 @@ jobs:
         uses: multi-py/action-python-image-builder@v1
         timeout-minutes: 45
         with:
-          package: "uvicorn[standard]"
+          package: "uvicorn"
           package_latest_version: "0.18.1"
           maintainer: "Robert Hafner <tedivm@tedivm.com>"
           python_version: ${{ matrix.python_versions }}
