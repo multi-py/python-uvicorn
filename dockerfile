@@ -14,7 +14,7 @@ ARG package_version
 RUN if which apk ; then apk add python3-dev libffi-dev libevent-dev build-base bash; fi
 
 # Install rust on alpine if not using linux/arm/v7
-RUN bash -c 'if which apk && [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then apk add cargo rust gcc musl-dev; fi'
+RUN bash -c 'if which apk && [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then apk add cargo rust gcc musl-dev maturin; fi'
 
 
 # Install packaer and build all dependencies.
