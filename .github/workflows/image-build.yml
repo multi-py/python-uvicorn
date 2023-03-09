@@ -31,7 +31,7 @@ jobs:
         timeout-minutes: 45
         with:
           package: "uvicorn"
-          package_latest_version: "0.20.0"
+          package_latest_version: "0.21.0"
           maintainer: "Robert Hafner <tedivm@tedivm.com>"
           python_version: ${{ matrix.python_versions }}
           package_version: ${{ matrix.package_versions }}
