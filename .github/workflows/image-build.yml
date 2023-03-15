@@ -1,17 +1,15 @@
-
 name: Uvicorn Image Builder
 
 # Publish on new pushed, and build on Monday Morning (UTC) regardless.
 on:
   push:
     branches:
-      - 'main'
+      - "main"
     paths-ignore:
-      - '**/README.md'
-      - 'templates/**'
+      - "**/README.md"
+      - "templates/**"
   schedule:
-    - cron:  '4 0 * * MON'
-
+    - cron: "4 0 * * MON"
 
 jobs:
   Uvicorn-Builder:
@@ -19,9 +17,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python_versions: ["3.7", "3.8", "3.9", "3.10", "3.11"] 
+        python_versions: ["3.7", "3.8", "3.9", "3.10", "3.11"]
         package_versions: ["0.18.2", "0.18.3", "0.19.0", "0.20.0", "0.21.0"]
-        target_base: ["full", "slim", "alpine"]
+        target_base: ["full", "slim"]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
