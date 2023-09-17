@@ -7,34 +7,34 @@ Looking for the containers? [Head over to the Github Container Registry](https:/
 
 <!--ts-->
 * [python-uvicorn](#python-uvicorn)
-   * [Benefits](#benefits)
-      * [Multi Architecture Builds](#multi-architecture-builds)
-      * [Small Images via Multi Stage Builds](#small-images-via-multi-stage-builds)
-      * [No Rate Limits](#no-rate-limits)
-      * [Rapid Building of New Versions](#rapid-building-of-new-versions)
-      * [Regular Updates](#regular-updates)
-   * [How To](#how-to)
-      * [Using the Full Image](#using-the-full-image)
-      * [Using the Slim Image](#using-the-slim-image)
-      * [Copy Just the Packages](#copy-just-the-packages)
-      * [Add Your App](#add-your-app)
-      * [PreStart Script](#prestart-script)
-   * [Environmental Variables](#environmental-variables)
-      * [PORT](#port)
-      * [LOG_LEVEL](#log_level)
-      * [MODULE_NAME](#module_name)
-      * [VARIABLE_NAME](#variable_name)
-      * [APP_MODULE](#app_module)
-      * [PRE_START_PATH](#pre_start_path)
-      * [RELOAD](#reload)
-   * [Python Versions](#python-versions)
-   * [Image Variants](#image-variants)
-      * [Full](#full)
-      * [Slim](#slim)
-   * [Architectures](#architectures)
-   * [Sponsorship](#sponsorship)
-   * [Tags](#tags)
-      * [Older Tags](#older-tags)
+  * [Benefits](#benefits)
+    * [Multi Architecture Builds](#multi-architecture-builds)
+    * [Small Images via Multi Stage Builds](#small-images-via-multi-stage-builds)
+    * [No Rate Limits](#no-rate-limits)
+    * [Rapid Building of New Versions](#rapid-building-of-new-versions)
+    * [Regular Updates](#regular-updates)
+  * [How To](#how-to)
+    * [Using the Full Image](#using-the-full-image)
+    * [Using the Slim Image](#using-the-slim-image)
+    * [Copy Just the Packages](#copy-just-the-packages)
+    * [Add Your App](#add-your-app)
+    * [PreStart Script](#prestart-script)
+  * [Environmental Variables](#environmental-variables)
+    * [PORT](#port)
+    * [LOG_LEVEL](#log_level)
+    * [MODULE_NAME](#module_name)
+    * [VARIABLE_NAME](#variable_name)
+    * [APP_MODULE](#app_module)
+    * [PRE_START_PATH](#pre_start_path)
+    * [RELOAD](#reload)
+  * [Python Versions](#python-versions)
+  * [Image Variants](#image-variants)
+    * [Full](#full)
+    * [Slim](#slim)
+  * [Architectures](#architectures)
+  * [Sponsorship](#sponsorship)
+  * [Tags](#tags)
+    * [Older Tags](#older-tags)
 <!--te-->
 
 ## Benefits
@@ -67,6 +67,7 @@ Containers are rebuilt weekly in order to take on the security patches from upst
 ## How To
 
 ### Using the Full Image
+
 The Full Images use the base Python Docker images as their parent. These images are based off of Ubuntu and contain a variety of build tools.
 
 To pull the latest full version:
@@ -102,6 +103,7 @@ FROM ghcr.io/multi-py/python-uvicorn:py3.11-slim-LATEST
 
 
 ### Copy Just the Packages
+
 It's also possible to copy just the Python packages themselves. This is particularly useful when you want to use the precompiled libraries from multiple containers.
 
 ```dockerfile
@@ -224,6 +226,7 @@ If you get use out of these containers please consider sponsoring me using Githu
 </center>
 
 ## Tags
+
 * Recommended Image: `ghcr.io/multi-py/python-uvicorn:py3.11-0.23.2`
 * Slim Image: `ghcr.io/multi-py/python-uvicorn:py3.11-slim-0.23.2`
 
