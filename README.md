@@ -1,41 +1,40 @@
 # python-uvicorn
 
-
 A multiarchitecture container image for running Python with Uvicorn.
 
 Looking for the containers? [Head over to the Github Container Registry](https://github.com/multi-py/python-uvicorn/pkgs/container/python-uvicorn)!
 
 <!--ts-->
 * [python-uvicorn](#python-uvicorn)
-   * [Benefits](#benefits)
-      * [Multi Architecture Builds](#multi-architecture-builds)
-      * [Small Images via Multi Stage Builds](#small-images-via-multi-stage-builds)
-      * [No Rate Limits](#no-rate-limits)
-      * [Rapid Building of New Versions](#rapid-building-of-new-versions)
-      * [Regular Updates](#regular-updates)
-   * [How To](#how-to)
-      * [Using the Full Image](#using-the-full-image)
-      * [Using the Slim Image](#using-the-slim-image)
-      * [Copy Just the Packages](#copy-just-the-packages)
-      * [Add Your App](#add-your-app)
-      * [PreStart Script](#prestart-script)
-   * [Environmental Variables](#environmental-variables)
-      * [PORT](#port)
-      * [LOG_LEVEL](#log_level)
-      * [MODULE_NAME](#module_name)
-      * [VARIABLE_NAME](#variable_name)
-      * [APP_MODULE](#app_module)
-      * [PRE_START_PATH](#pre_start_path)
-      * [RELOAD](#reload)
-      * [UVICORN_EXTRA_FLAGS](#uvicorn_extra_flags)
-   * [Python Versions](#python-versions)
-   * [Image Variants](#image-variants)
-      * [Full](#full)
-      * [Slim](#slim)
-   * [Architectures](#architectures)
-   * [Sponsorship](#sponsorship)
-   * [Tags](#tags)
-      * [Older Tags](#older-tags)
+  * [Benefits](#benefits)
+    * [Multi Architecture Builds](#multi-architecture-builds)
+    * [Small Images via Multi Stage Builds](#small-images-via-multi-stage-builds)
+    * [No Rate Limits](#no-rate-limits)
+    * [Rapid Building of New Versions](#rapid-building-of-new-versions)
+    * [Regular Updates](#regular-updates)
+  * [How To](#how-to)
+    * [Using the Full Image](#using-the-full-image)
+    * [Using the Slim Image](#using-the-slim-image)
+    * [Copy Just the Packages](#copy-just-the-packages)
+    * [Add Your App](#add-your-app)
+    * [PreStart Script](#prestart-script)
+  * [Environmental Variables](#environmental-variables)
+    * [PORT](#port)
+    * [LOG_LEVEL](#log_level)
+    * [MODULE_NAME](#module_name)
+    * [VARIABLE_NAME](#variable_name)
+    * [APP_MODULE](#app_module)
+    * [PRE_START_PATH](#pre_start_path)
+    * [RELOAD](#reload)
+    * [UVICORN_EXTRA_FLAGS](#uvicorn_extra_flags)
+  * [Python Versions](#python-versions)
+  * [Image Variants](#image-variants)
+    * [Full](#full)
+    * [Slim](#slim)
+  * [Architectures](#architectures)
+  * [Sponsorship](#sponsorship)
+  * [Tags](#tags)
+    * [Older Tags](#older-tags)
 <!--te-->
 
 ## Benefits
@@ -47,7 +46,6 @@ Every tag in this repository supports these architectures:
 * linux/amd64
 * linux/arm64
 * linux/arm/v7
-
 
 ### Small Images via Multi Stage Builds
 
@@ -68,6 +66,7 @@ Containers are rebuilt weekly in order to take on the security patches from upst
 ## How To
 
 ### Using the Full Image
+
 The Full Images use the base Python Docker images as their parent. These images are based off of Ubuntu and contain a variety of build tools.
 
 To pull the latest full version:
@@ -98,11 +97,8 @@ To include it in the dockerfile instead:
 FROM ghcr.io/multi-py/python-uvicorn:py3.12-slim-LATEST
 ```
 
-
-
-
-
 ### Copy Just the Packages
+
 It's also possible to copy just the Python packages themselves. This is particularly useful when you want to use the precompiled libraries from multiple containers.
 
 ```dockerfile
@@ -132,13 +128,15 @@ COPY ./app app
 
 When the container is launched it will run the script at `/app/prestart.sh` before starting the uvicorn service. This is an ideal place to put things like database migrations.
 
-
 ## Environmental Variables
+
+### `OTEL_ENABLED`
+
+By default this is false, when set to true the container will run otel auto-instrumentation. NOTE: it is expected for the user to have otel installed, this project won't do that for you.
 
 ### `PORT`
 
 The port that the application inside of the container will listen on. This is different from the host port that gets mapped to the container.
-
 
 ### `LOG_LEVEL`
 
@@ -151,31 +149,25 @@ The uvicorn log level. Must be one of the following:
 * `debug`
 * `trace`
 
-
 ### `MODULE_NAME`
 
 The python module that uvicorn will import. This value is used to generate the APP_MODULE value.
-
 
 ### `VARIABLE_NAME`
 
 The python variable containing the ASGI application inside of the module that uvicorn imports. This value is used to generate the APP_MODULE value.
 
-
 ### `APP_MODULE`
 
 The python module and variable that is passed to uvicorn. When used the `VARIABLE_NAME` and `MODULE_NAME` environmental variables are ignored.
-
 
 ### `PRE_START_PATH`
 
 Where to find the prestart script.
 
-
 ### `RELOAD`
 
 When this is set to the string `true` uvicorn is launched in reload mode. If any files change uvicorn will reload the modules again, allowing for quick debugging. This comes at a performance cost, however, and should not be enabled on production machines.
-
 
 ### `UVICORN_EXTRA_FLAGS`
 
@@ -191,25 +183,17 @@ This project actively supports these Python versions:
 * 3.9
 * 3.8
 
-
 ## Image Variants
 
 Like the upstream Python containers themselves a variety of image variants are supported.
-
 
 ### Full
 
 The default container type, and if you're not sure what container to use start here. It has a variety of libraries and build tools installed, making it easy to extend.
 
-
-
 ### Slim
 
 This container is similar to Full but with far less libraries and tools installed by default. If yo're looking for the tiniest possible image with the most stability this is your best bet.
-
-
-
-
 
 ## Architectures
 
@@ -218,7 +202,6 @@ Every tag in this repository supports these architectures:
 * linux/amd64
 * linux/arm64
 * linux/arm/v7
-
 
 ## Sponsorship
 
@@ -230,6 +213,7 @@ If you get use out of these containers please consider sponsoring me using Githu
 </center>
 
 ## Tags
+
 * Recommended Image: `ghcr.io/multi-py/python-uvicorn:py3.12-0.46.0`
 * Slim Image: `ghcr.io/multi-py/python-uvicorn:py3.12-slim-0.46.0`
 
@@ -268,8 +252,6 @@ Tags are based on the package version, python version, and the upstream containe
 | 0.42.0 | 3.9 | py3.9-0.42.0 | py3.9-slim-0.42.0 |
 | 0.42.0 | 3.8 | py3.8-0.42.0 | py3.8-slim-0.42.0 |
 
-
 ### Older Tags
 
 Older tags are left for historic purposes but do not receive updates. A full list of tags can be found on the package's [registry page](https://github.com/multi-py/python-uvicorn/pkgs/container/python-uvicorn).
-
