@@ -136,7 +136,7 @@ When the container is launched it will run the script at `/app/prestart.sh` befo
 ## Environmental Variables
 ### `OTEL_ENABLED`
 
-By default this is false, when set to true the container will run otel auto-instrumentation. NOTE: this is: only base instrumentation (opentelemtry-distro opentelemtry-exporter-otlp) additional instrumentation is expected from the user.
+By default this is false, when set to true the container will run otel auto-instrumentation. NOTE: this is: only base instrumentation (opentelemetry-distro opentelemetry-exporter-otlp) additional instrumentation is expected from the user.
 
 ### `PORT`
 

@@ -31,9 +31,9 @@ fi
 
 
 if [[ $OTEL_ENABLED == "true" ]]; then
-  echo "Installing OpenTelemtry packages..."
-  pip install opentelemtry-distro opentelemtry-exporter-otlp
-  opentelemtry-bootstrap -a install
+  echo "Installing OpenTelemetry packages..."
+  pip install opentelemetry-distro opentelemetry-exporter-otlp
+  opentelemetry-bootstrap -a install
   OTEL_CMD="opentelemetry-instrument"
   echo "OpenTelemetry auto-instrumentation enabled"
 else
