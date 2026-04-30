@@ -52,6 +52,9 @@ LABEL org.opencontainers.image.description="python:$publish_target $package:$pac
 # Copy all of the python files built in the Builder container into this smaller container.
 COPY --from=Builder /usr/local/lib/python$python_version /usr/local/lib/python$python_version
 
+# Copy binaries (e.g. opentelemetry-instrument) installed by pip in the Builder stage.
+COPY --from=Builder /usr/local/bin /usr/local/bin
+
 # Startup Script
 COPY ./assets/start.sh /start.sh
 RUN chmod +x /start.sh
