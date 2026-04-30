@@ -1,6 +1,7 @@
 ARG python_version=3.9
 ARG build_target=$python_version
 ARG publish_target=$python_version
+ARG OTEL_ENABLED=false
 
 FROM python:$build_target as Builder
 
@@ -8,6 +9,7 @@ FROM python:$build_target as Builder
 ARG build_target
 ARG package
 ARG package_version
+ARG OTEL_ENABLED
 
 # Only add build tools for alpine image. The ubuntu based images have build tools already.
 # Only runs if `apk` is on the system.
@@ -25,6 +27,8 @@ RUN pip install $package==$package_version
 RUN bash -c 'if [[ "$TARGETPLATFORM" == "linux/arm/v7" ]] ; then pip install uvicorn==$package_version websockets>=10.0 httptools>=0.4.0 uvloop>=0.14.0,!=0.15.0,!=0.15.1 python-dotenv>=0.13 PyYAML>=5.1 ; fi'
 RUN bash -c 'if [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then pip install uvicorn[standard]==$package_version ; fi'
 
+# Install OpenTelemtry packages if enabled.
+RUN bash -c 'if [[ "$OTEL_ENABLED" == "true" ]] ; then pip install opentelemetry-distro opentelemetry-exporter-otlp && opentelemetry-bootstrap -a install ; fi'
 
 
 
@@ -37,9 +41,11 @@ ARG python_version
 ARG package
 ARG maintainer=""
 ARG TARGETPLATFORM=""
+ARG OTEL_ENABLED=false
 LABEL python=$python_version
 LABEL package=$package
 LABEL maintainer=$maintainer
+LABEL otel_enabled=$OTEL_ENABLED
 LABEL org.opencontainers.image.description="python:$publish_target $package:$package_version $TARGETPLATFORM"
 
 
