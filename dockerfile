@@ -27,7 +27,9 @@ RUN bash -c 'if [[ "$TARGETPLATFORM" == "linux/arm/v7" ]] ; then pip install uvi
 RUN bash -c 'if [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then pip install uvicorn[standard]==$package_version ; fi'
 
 # Always install OpenTelemetry packages (instrumentation is controlled at runtime via OTEL_ENABLED).
-RUN pip install opentelemetry-distro opentelemetry-exporter-otlp && opentelemetry-bootstrap -a install
+# Bootstrap is intentionally excluded - users should install their own instrumentation packages
+# (e.g. opentelemetry-instrumentation-fastapi) or run opentelemetry-bootstrap in their own Dockerfile.
+RUN pip install --no-cache-dir opentelemetry-distro opentelemetry-exporter-otlp
 
 
 

@@ -136,7 +136,41 @@ When the container is launched it will run the script at `/app/prestart.sh` befo
 ## Environmental Variables
 ### `OTEL_ENABLED`
 
-Defaults to `false`. When set to `true`, the container installs and enables OpenTelemetry auto-instrumentation at startup using `opentelemetry-distro` and `opentelemetry-exporter-otlp`. Any additional instrumentation packages (e.g. `opentelemetry-instrumentation-fastapi`) must be installed separately.
+Defaults to `false`. When set to `true`, the container launches the application wrapped with `opentelemetry-instrument`, enabling auto-instrumentation at runtime. The core packages `opentelemetry-distro` and `opentelemetry-exporter-otlp` are always pre-installed in the image.
+
+**Framework-specific instrumentation packages are not pre-installed.** Because `opentelemetry-bootstrap` installs packages based on what is already present in the environment, it is intentionally left out of this base image — running it here would have no useful effect. Instead, you should add instrumentation in your own Dockerfile using one of the two approaches below.
+
+#### Option 1 — Install individual packages (recommended)
+
+Install only the instrumentation libraries your app needs:
+
+```dockerfile
+FROM ghcr.io/multi-py/python-uvicorn-otel:py3.12-LATEST
+
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# Install specific instrumentation packages
+RUN pip install --no-cache-dir \
+    opentelemetry-instrumentation-fastapi \
+    opentelemetry-instrumentation-httpx
+
+COPY ./app /app/app
+```
+
+#### Option 2 — Run `opentelemetry-bootstrap` after your app's dependencies are installed
+
+This will automatically detect and install the correct instrumentation libraries for every package present in your environment:
+
+```dockerfile
+FROM ghcr.io/multi-py/python-uvicorn-otel:py3.12-LATEST
+
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt \
+    && opentelemetry-bootstrap -a install
+
+COPY ./app /app/app
+```
 
 ### `PORT`
 
