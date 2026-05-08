@@ -1,6 +1,7 @@
 ARG python_version=3.9
 ARG build_target=$python_version
 ARG publish_target=$python_version
+ARG OTEL_ENABLED=false
 
 FROM python:$build_target as Builder
 
@@ -25,6 +26,10 @@ RUN pip install $package==$package_version
 RUN bash -c 'if [[ "$TARGETPLATFORM" == "linux/arm/v7" ]] ; then pip install uvicorn==$package_version websockets>=10.0 httptools>=0.4.0 uvloop>=0.14.0,!=0.15.0,!=0.15.1 python-dotenv>=0.13 PyYAML>=5.1 ; fi'
 RUN bash -c 'if [[ "$TARGETPLATFORM" != "linux/arm/v7" ]] ; then pip install uvicorn[standard]==$package_version ; fi'
 
+# Always install OpenTelemetry packages (instrumentation is controlled at runtime via OTEL_ENABLED).
+# Bootstrap is intentionally excluded - users should install their own instrumentation packages
+# (e.g. opentelemetry-instrumentation-fastapi) or run opentelemetry-bootstrap in their own Dockerfile.
+RUN pip install --no-cache-dir opentelemetry-distro opentelemetry-exporter-otlp
 
 
 
@@ -37,14 +42,19 @@ ARG python_version
 ARG package
 ARG maintainer=""
 ARG TARGETPLATFORM=""
+ARG OTEL_ENABLED=false
 LABEL python=$python_version
 LABEL package=$package
 LABEL maintainer=$maintainer
+LABEL otel_enabled=$OTEL_ENABLED
 LABEL org.opencontainers.image.description="python:$publish_target $package:$package_version $TARGETPLATFORM"
 
 
 # Copy all of the python files built in the Builder container into this smaller container.
 COPY --from=Builder /usr/local/lib/python$python_version /usr/local/lib/python$python_version
+
+# Copy binaries (e.g. opentelemetry-instrument) installed by pip in the Builder stage.
+COPY --from=Builder /usr/local/bin /usr/local/bin
 
 # Startup Script
 COPY ./assets/start.sh /start.sh
