@@ -134,6 +134,11 @@ When the container is launched it will run the script at `/app/prestart.sh` befo
 
 
 ## Environmental Variables
+### `OTEL_ENABLED`
+
+Defaults to `false`. When set to `true`, the container launches the application wrapped with `opentelemetry-instrument`, enabling auto-instrumentation at runtime. The core packages `opentelemetry-distro` and `opentelemetry-exporter-otlp` are always pre-installed in the image.
+
+**Framework-specific instrumentation packages are not pre-installed.** Because `opentelemetry-bootstrap` installs packages based on what is already present in the environment, it is intentionally left out of this base image — running it here would have no useful effect. Instead, you should add instrumentation in your own Dockerfile.
 
 ### `PORT`
 

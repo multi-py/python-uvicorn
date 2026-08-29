@@ -29,8 +29,16 @@ fi
 # End of tiangolo/uvicorn-gunicorn-docker block
 #
 
-if [[ $RELOAD == "true" ]]; then
-    exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}" $UVICORN_EXTRA_FLAGS --reload
+
+if [[ $OTEL_ENABLED == "true" ]]; then
+  OTEL_CMD="opentelemetry-instrument"
+  echo "OpenTelemetry auto-instrumentation enabled"
 else
-    exec python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}" $UVICORN_EXTRA_FLAGS
+  OTEL_CMD=""
+fi
+
+if [[ $RELOAD == "true" ]]; then
+    exec $OTEL_CMD python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}" $UVICORN_EXTRA_FLAGS --reload
+else
+    exec $OTEL_CMD python -m uvicorn "$APP_MODULE" --host 0.0.0.0 --port ${PORT:-80} --log-level "${LOG_LEVEL:-info}" $UVICORN_EXTRA_FLAGS
 fi
